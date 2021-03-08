@@ -1,0 +1,27 @@
+{
+    "name": "kisoty/snail-walk2d-array",
+    "type": "project",
+    "description": "Codewars snail kata solution. It's overextended, though it's meant to be.",
+    "authors": [
+        {
+            "name": "Kisoty",
+            "email": "kisoty@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kisoty\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Kisoty\\Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    }
+}
