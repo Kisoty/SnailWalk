@@ -31,11 +31,6 @@ class WalkingObject
         return $this->point->getPosition();
     }
 
-    public function getDirection(): DirectionInterface
-    {
-        return $this->direction;
-    }
-
     public function walkBoard(): array
     {
         while ($this->stuck_counter < 2) {
@@ -58,7 +53,7 @@ class WalkingObject
     private function canMoveForward(): bool
     {
         try {
-            $nextPoint = $this->board->getNextPointToObj();
+            $nextPoint = $this->board->getNextPointToPosition($this->getPosition(), $this->direction);
         } catch (Exception $e) {
             return false;
         }
@@ -70,7 +65,7 @@ class WalkingObject
     {
         $this->unstuck();
 
-        $this->point = $this->board->getNextPointToObj();
+        $this->point = $this->board->getNextPointToPosition($this->getPosition(), $this->direction);
         $this->point->pass();
 
         $this->path[] = $this->point->getValue();

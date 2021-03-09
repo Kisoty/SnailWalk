@@ -9,16 +9,10 @@ use Kisoty\Direction\DirectionInterface;
 class Board
 {
     private UniquePointList $points;
-    private WalkingObject $object;
 
     public function __construct(UniquePointList $points)
     {
         $this->points = $points;
-    }
-
-    public function setObject(WalkingObject $object): void
-    {
-        $this->object = $object;
     }
 
     public function getStartPoint(): Point
@@ -38,16 +32,9 @@ class Board
     /**
      * @throws Exception
      */
-    public function getNextPointToObj(): Point
+    public function getNextPointToPosition(Position $position, DirectionInterface $direction): Point
     {
-        if (!isset($this->object)) {
-            throw new Exception('Object is not set.');
-        }
-
-        $objPosition = $this->object->getPosition();
-        $objDirection = $this->object->getDirection();
-
-        $nextPosition = $objDirection->getNextPosition($objPosition);
+        $nextPosition = $direction->getNextPosition($position);
 
         return $this->points->getByPosition($nextPosition);
     }
