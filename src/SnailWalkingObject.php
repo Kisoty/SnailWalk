@@ -5,7 +5,7 @@ namespace Kisoty;
 use Exception;
 use Kisoty\Direction\DirectionInterface;
 
-class WalkingObject
+class SnailWalkingObject
 {
     private Point $point;
     private DirectionInterface $direction;

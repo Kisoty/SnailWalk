@@ -2,7 +2,7 @@
 
 use Kisoty\Board;
 use Kisoty\UniquePointList;
-use Kisoty\WalkingObject;
+use Kisoty\SnailWalkingObject;
 
 require_once '../vendor/autoload.php';
 
@@ -13,7 +13,7 @@ function snail(array $array): array
     $board = new Board($pointList);
 
     try {
-        $obj = new WalkingObject($board);
+        $obj = new SnailWalkingObject($board);
     } catch (Exception $e) {
         //no starting point => path is empty
         return [];
