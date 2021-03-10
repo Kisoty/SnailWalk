@@ -51,6 +51,9 @@ class WalkingObject
         }
     }
 
+    /**
+     * @throws Exception
+     */
     private function getNextPoint(): Point
     {
         return $this->board->getNextPointInDirection($this->point, $this->direction);
