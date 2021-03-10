@@ -27,7 +27,7 @@ class WalkingObject
     {
         while ($this->stuck_counter < 2) {
             try {
-                $this->move();
+                $this->step();
             } catch (Exception $e) {
                 $this->stuck();
                 $this->turnRight();
@@ -40,7 +40,7 @@ class WalkingObject
     /**
      * @throws Exception
      */
-    private function move(): void
+    private function step(): void
     {
         $nextPoint = $this->getNextPoint();
 
