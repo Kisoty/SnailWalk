@@ -2,9 +2,9 @@
 
 namespace Kisoty;
 
-use Exception;
+use Traversable;
 
-class UniquePointList
+class UniquePointList implements \IteratorAggregate
 {
     /** @var Point[] $points */
     private array $points;
@@ -14,7 +14,7 @@ class UniquePointList
         $this->points = [];
     }
 
-    public static function fromMatrix(array $matrix): UniquePointList
+    public static function from2DMatrix(array $matrix): UniquePointList
     {
         $height = count($matrix);
         $width = count($matrix[0]);
@@ -51,17 +51,8 @@ class UniquePointList
         }
     }
 
-    /**
-     * @throws Exception
-     */
-    public function getByPosition(Position $position): Point
+    public function getIterator(): Traversable
     {
-        foreach ($this->points as $point) {
-            if ($position->equals($point->getPosition())) {
-                return $point;
-            }
-        }
-
-        throw new Exception('Point with given position doesn\'t exist.');
+        return new \ArrayIterator($this->points);
     }
 }

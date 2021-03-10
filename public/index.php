@@ -8,7 +8,7 @@ require_once '../vendor/autoload.php';
 
 function snail(array $array): array
 {
-    $pointList = UniquePointList::fromMatrix($array);
+    $pointList = UniquePointList::from2DMatrix($array);
 
     $board = new Board($pointList);
 

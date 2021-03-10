@@ -15,13 +15,18 @@ class Board
         $this->points = $points;
     }
 
+    /**
+     * @throws Exception
+     */
     public function getStartPoint(): Point
     {
         try {
-            return $this->points->getByPosition(new Position(0, 0));
+            $startPoint = $this->getPointByPosition(new Position(0, 0));
         } catch (Exception $e) {
             throw new Exception('Start point not found.');
         }
+
+        return $startPoint;
     }
 
     public function getStartDirection(): DirectionInterface
@@ -38,6 +43,20 @@ class Board
 
         $nextPosition = $direction->getNextPosition($pointPosition);
 
-        return $this->points->getByPosition($nextPosition);
+        return $this->getPointByPosition($nextPosition);
+    }
+
+    /**
+     * @throws Exception
+     */
+    private function getPointByPosition(Position $position): Point
+    {
+        foreach ($this->points as $point) {
+            if ($position->equals($point->getPosition())) {
+                return $point;
+            }
+        }
+
+        throw new Exception('Point with given position doesn\'t exist.');
     }
 }

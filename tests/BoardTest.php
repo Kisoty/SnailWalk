@@ -3,24 +3,29 @@
 namespace Kisoty\Tests;
 
 use Kisoty\Board;
-use Kisoty\Point;
 use Kisoty\UniquePointList;
 
 class BoardTest extends \PHPUnit\Framework\TestCase
 {
-    public function testStartPoint()
+    private Board $board;
+
+    public function testGetStartPoint()
     {
-        $pointList = UniquePointList::fromMatrix([
+        $this->makeBoardFrom2DMatrix([
             [1, 2, 3],
             [4, 5, 6]
         ]);
 
-        $board = new Board($pointList);
+        $startPoint = $this->board->getStartPoint();
 
-        $startPoint = $board->getStartPoint();
-
-        $this->assertInstanceOf(Point::class, $startPoint);
         $this->assertEquals(1, $startPoint->getValue());
+    }
+
+    public function makeBoardFrom2DMatrix(array $matrix): void
+    {
+        $pointList = UniquePointList::from2DMatrix($matrix);
+
+        $this->board = new Board($pointList);
     }
 
 }
