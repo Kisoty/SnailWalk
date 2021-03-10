@@ -32,9 +32,11 @@ class Board
     /**
      * @throws Exception
      */
-    public function getNextPointToPosition(Position $position, DirectionInterface $direction): Point
+    public function getNextPointInDirection(Point $point, DirectionInterface $direction): Point
     {
-        $nextPosition = $direction->getNextPosition($position);
+        $pointPosition = $point->getPosition();
+
+        $nextPosition = $direction->getNextPosition($pointPosition);
 
         return $this->points->getByPosition($nextPosition);
     }

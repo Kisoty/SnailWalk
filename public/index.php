@@ -19,8 +19,6 @@ function snail(array $array): array
         return [];
     }
 
-    $board->setObject($obj);
-
     return $obj->walkBoard();
 }
 $matrix = [
@@ -32,6 +30,8 @@ $matrix = [
 $expected_result = [1, 2, 3, 6, 9, 8, 7, 4, 5];
 
 $result = snail($matrix);
+
+//var_dump($result);
 
 if ($expected_result !== $result) {
     throw new Exception('Expected result not reached.');

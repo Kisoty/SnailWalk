@@ -20,59 +20,69 @@ class WalkingObject
     {
         $this->board = $board;
         $this->direction = $this->board->getStartDirection();
-        $this->point = $this->board->getStartPoint();
-        $this->point->pass();
-        $this->path = [$this->point->getValue()];
-        $this->stuck_counter = 0;
-    }
-
-    public function getPosition(): Position
-    {
-        return $this->point->getPosition();
+        $this->moveToPoint($this->board->getStartPoint());
     }
 
     public function walkBoard(): array
     {
         while ($this->stuck_counter < 2) {
-            $this->move();
+            try {
+                $this->move();
+            } catch (Exception $e) {
+                $this->stuck();
+                $this->turnRight();
+            }
         }
 
         return $this->path;
     }
 
+    /**
+     * @throws Exception
+     */
     private function move(): void
     {
-        if ($this->canMoveForward()) {
-            $this->moveForward();
+        $nextPoint = $this->getNextPoint();
+
+        if ($this->canMoveToPoint($nextPoint)) {
+            $this->moveToPoint($nextPoint);
         } else {
-            $this->stuck_counter++;
-            $this->direction = $this->direction->turnRight();
+            throw new Exception('Can\'t move to this point.');
         }
     }
 
-    private function canMoveForward(): bool
+    private function getNextPoint(): Point
     {
-        try {
-            $nextPoint = $this->board->getNextPointToPosition($this->getPosition(), $this->direction);
-        } catch (Exception $e) {
-            return false;
-        }
-
-        return $nextPoint->notPassed();
+        return $this->board->getNextPointInDirection($this->point, $this->direction);
     }
 
-    private function moveForward(): void
+    private function canMoveToPoint(Point $point): bool
+    {
+        return $point->notPassed();
+    }
+
+    private function moveToPoint(Point $point): void
     {
         $this->unstuck();
 
-        $this->point = $this->board->getNextPointToPosition($this->getPosition(), $this->direction);
-        $this->point->pass();
+        $this->point = $point;
+        $point->pass();
 
         $this->path[] = $this->point->getValue();
+    }
+
+    private function stuck(): void
+    {
+        $this->stuck_counter++;
     }
 
     private function unstuck(): void
     {
         $this->stuck_counter = 0;
+    }
+
+    private function turnRight(): void
+    {
+        $this->direction = $this->direction->turnRight();
     }
 }
