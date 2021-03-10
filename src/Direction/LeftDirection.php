@@ -13,6 +13,6 @@ class LeftDirection implements DirectionInterface
 
     public function turnRight(): DirectionInterface
     {
-        return new TopDirection;
+        return new TopDirection();
     }
 }

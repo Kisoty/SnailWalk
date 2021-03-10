@@ -26,7 +26,7 @@ class Board
 
     public function getStartDirection(): DirectionInterface
     {
-        return new RightDirection;
+        return new RightDirection();
     }
 
     /**

@@ -14,6 +14,6 @@ class TopDirection implements DirectionInterface
 
     public function turnRight(): DirectionInterface
     {
-        return new RightDirection;
+        return new RightDirection();
     }
 }

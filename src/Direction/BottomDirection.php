@@ -14,6 +14,6 @@ class BottomDirection implements DirectionInterface
 
     public function turnRight(): DirectionInterface
     {
-        return new LeftDirection;
+        return new LeftDirection();
     }
 }

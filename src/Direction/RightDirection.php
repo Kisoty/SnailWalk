@@ -13,6 +13,6 @@ class RightDirection implements DirectionInterface
 
     public function turnRight(): DirectionInterface
     {
-        return new BottomDirection;
+        return new BottomDirection();
     }
 }
