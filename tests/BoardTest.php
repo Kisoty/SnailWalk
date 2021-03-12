@@ -2,16 +2,17 @@
 
 namespace Kisoty\Tests;
 
+use Exception;
 use Kisoty\Board;
-use Kisoty\UniquePointList;
+use PHPUnit\Framework\TestCase;
 
-class BoardTest extends \PHPUnit\Framework\TestCase
+class BoardTest extends TestCase
 {
     private Board $board;
 
     public function testGetStartPoint()
     {
-        $this->makeBoardFrom2DMatrix([
+        $this->makeBoard([
             [1, 2, 3],
             [4, 5, 6]
         ]);
@@ -21,11 +22,13 @@ class BoardTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(1, $startPoint->getValue());
     }
 
-    public function makeBoardFrom2DMatrix(array $matrix): void
+    /**
+     * @param array[] $array
+     * @throws Exception
+     */
+    public function makeBoard(array $array): void
     {
-        $pointList = UniquePointList::from2DMatrix($matrix);
-
-        $this->board = new Board($pointList);
+        $this->board = new Board($array);
     }
 
 }

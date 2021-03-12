@@ -25,9 +25,9 @@ class Point
         return $this->value;
     }
 
-    public function notPassed(): bool
+    public function isPassed(): bool
     {
-        return !$this->passed;
+        return $this->passed;
     }
 
     public function pass()

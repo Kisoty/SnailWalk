@@ -14,22 +14,6 @@ class UniquePointList implements \IteratorAggregate
         $this->points = [];
     }
 
-    public static function from2DMatrix(array $matrix): UniquePointList
-    {
-        $height = count($matrix);
-        $width = count($matrix[0]);
-
-        $pointList = new UniquePointList();
-
-        for ($i = 0; $i < $height; $i++) {
-            for ($j = 0; $j < $width; $j++) {
-                $pointList->add(new Point(new Position($j, $i), $matrix[$i][$j]));
-            }
-        }
-
-        return $pointList;
-    }
-
     public function add(Point $point): void
     {
         if (!$this->contains($point)) {
@@ -39,12 +23,12 @@ class UniquePointList implements \IteratorAggregate
 
     public function contains(Point $point): bool
     {
-        return in_array($point, $this->points, true);
+        return in_array($point, $this->points);
     }
 
     public function remove(Point $point): void
     {
-        $key = array_search($point, $this->points, true);
+        $key = array_search($point, $this->points);
 
         if ($key !== false) {
             unset($this->points[$key]);

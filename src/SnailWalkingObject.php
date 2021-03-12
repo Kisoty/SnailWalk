@@ -11,7 +11,7 @@ class SnailWalkingObject
     private DirectionInterface $direction;
     private Board $board;
     private array $path;
-    private int $stuck_counter;
+    private int $stuckCounter;
 
     /**
      * @throws Exception
@@ -25,7 +25,7 @@ class SnailWalkingObject
 
     public function walkBoard(): array
     {
-        while ($this->stuck_counter < 2) {
+        while ($this->stuckCounter < 2) {
             try {
                 $this->step();
             } catch (Exception $e) {
@@ -61,7 +61,7 @@ class SnailWalkingObject
 
     private function canMoveToPoint(Point $point): bool
     {
-        return $point->notPassed();
+        return !$point->isPassed();
     }
 
     private function moveToPoint(Point $point): void
@@ -76,12 +76,12 @@ class SnailWalkingObject
 
     private function stuck(): void
     {
-        $this->stuck_counter++;
+        $this->stuckCounter++;
     }
 
     private function unstuck(): void
     {
-        $this->stuck_counter = 0;
+        $this->stuckCounter = 0;
     }
 
     private function turnRight(): void

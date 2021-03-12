@@ -1,21 +1,22 @@
 <?php
 
 use Kisoty\Board;
-use Kisoty\UniquePointList;
 use Kisoty\SnailWalkingObject;
 
 require_once '../vendor/autoload.php';
 
+/**
+ * @param array[] $array
+ * @throws Exception
+ */
 function snail(array $array): array
 {
-    $pointList = UniquePointList::from2DMatrix($array);
-
-    $board = new Board($pointList);
 
     try {
+        $board = new Board($array);
         $obj = new SnailWalkingObject($board);
     } catch (Exception $e) {
-        //no starting point => path is empty
+        //if given array is not 2D just return empty path
         return [];
     }
 
