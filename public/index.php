@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Kisoty\Board;
 use Kisoty\SnailWalkingObject;
 
