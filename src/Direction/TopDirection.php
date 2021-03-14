@@ -8,10 +8,10 @@ use Kisoty\Position;
 
 class TopDirection implements DirectionInterface
 {
-    public function getNextPosition(Position $position): Position
+    public function getNextPosition(Position $position, int $stepSize): Position
     {
         // Y-axis is downward
-        return new Position($position->getX(), $position->getY() - 1);
+        return new Position($position->getX(), $position->getY() - $stepSize);
     }
 
     public function turnRight(): DirectionInterface

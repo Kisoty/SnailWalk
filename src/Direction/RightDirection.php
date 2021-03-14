@@ -8,9 +8,9 @@ use Kisoty\Position;
 
 class RightDirection implements DirectionInterface
 {
-    public function getNextPosition(Position $position): Position
+    public function getNextPosition(Position $position, int $stepSize): Position
     {
-        return new Position($position->getX() + 1, $position->getY());
+        return new Position($position->getX() + $stepSize, $position->getY());
     }
 
     public function turnRight(): DirectionInterface

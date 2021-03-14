@@ -8,7 +8,7 @@ use Kisoty\Position;
 
 interface DirectionInterface
 {
-    public function getNextPosition(Position $position): Position;
+    public function getNextPosition(Position $position, int $stepSize): Position;
 
     public function turnRight(): DirectionInterface;
 }

@@ -14,6 +14,7 @@ class SnailWalkingObject
     private Board $board;
     private array $path;
     private int $stuckCounter;
+    private int $stepSize = 1;
 
     /**
      * @throws Exception
@@ -58,7 +59,16 @@ class SnailWalkingObject
      */
     private function getNextPoint(): Point
     {
-        return $this->board->getNextPointInDirection($this->point, $this->direction);
+        $newPosition = $this->getNextPointPosition();
+
+        return $this->board->getPointByPosition($newPosition);
+    }
+
+    private function getNextPointPosition(): Position
+    {
+        $currentPosition = $this->point->getPosition();
+
+        return $this->direction->getNextPosition($currentPosition, $this->stepSize);
     }
 
     private function canMoveToPoint(Point $point): bool

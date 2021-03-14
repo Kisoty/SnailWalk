@@ -69,19 +69,7 @@ class Board
     /**
      * @throws Exception
      */
-    public function getNextPointInDirection(Point $point, DirectionInterface $direction): Point
-    {
-        $pointPosition = $point->getPosition();
-
-        $nextPosition = $direction->getNextPosition($pointPosition);
-
-        return $this->getPointByPosition($nextPosition);
-    }
-
-    /**
-     * @throws Exception
-     */
-    private function getPointByPosition(Position $position): Point
+    public function getPointByPosition(Position $position): Point
     {
         foreach ($this->points as $point) {
             if ($position->equals($point->getPosition())) {
