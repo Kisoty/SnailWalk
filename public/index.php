@@ -3,20 +3,20 @@
 declare(strict_types=1);
 
 use Kisoty\Board;
+use Kisoty\Direction\RightDirection;
 use Kisoty\SnailWalkingObject;
 
 require_once '../vendor/autoload.php';
 
 /**
  * @param array[] $array
- * @throws Exception
  */
 function snail(array $array): array
 {
 
     try {
         $board = new Board($array);
-        $obj = new SnailWalkingObject($board);
+        $obj = new SnailWalkingObject($board, new RightDirection());
     } catch (Exception $e) {
         //if given array is not 2D just return empty path
         return [];

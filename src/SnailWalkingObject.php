@@ -19,10 +19,10 @@ class SnailWalkingObject
     /**
      * @throws Exception
      */
-    public function __construct(Board $board)
+    public function __construct(Board $board, DirectionInterface $direction)
     {
         $this->board = $board;
-        $this->direction = $this->board->getStartDirection();
+        $this->direction = $direction;
         $this->moveToPoint($this->board->getStartPoint());
     }
 

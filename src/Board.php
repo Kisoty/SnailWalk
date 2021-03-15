@@ -11,7 +11,6 @@ use Kisoty\Direction\DirectionInterface;
 class Board
 {
     private UniquePointList $points;
-    private DirectionInterface $startDirection;
 
     /**
      * @param array[] $array
@@ -20,10 +19,10 @@ class Board
     public function __construct(array $array)
     {
         $this->points = $this->makePointListFromArray($array);
-        $this->startDirection = new RightDirection();
     }
 
     /**
+     * @param array[] $array
      * @throws Exception
      */
     private function makePointListFromArray(array $array): UniquePointList
@@ -36,7 +35,7 @@ class Board
             $row = $array[$i];
 
             if (!is_array($row)) {
-                throw new Exception('Given array is not 2-dimensional.');
+                throw new Exception('Given array is not valid 2-dimensional.');
             }
 
             $width = count($array[$i]);
@@ -59,11 +58,6 @@ class Board
         }
 
         throw new Exception('Board is empty.');
-    }
-
-    public function getStartDirection(): DirectionInterface
-    {
-        return $this->startDirection;
     }
 
     /**
