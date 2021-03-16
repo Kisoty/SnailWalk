@@ -2,19 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Kisoty;
+namespace Kisoty\Board;
 
-use Exception;
-use Kisoty\Direction\RightDirection;
-use Kisoty\Direction\DirectionInterface;
+use Kisoty\Point;
+use Kisoty\Position;
+use Kisoty\UniquePointList;
 
 class Board
 {
     private UniquePointList $points;
 
     /**
+     * @psalm-param array<array<int>>
      * @param array[] $array
-     * @throws Exception
+     * @throws BoardCreationException
      */
     public function __construct(array $array)
     {
@@ -22,8 +23,9 @@ class Board
     }
 
     /**
+     * @psalm-param array<array<int>>
      * @param array[] $array
-     * @throws Exception
+     * @throws BoardCreationException
      */
     private function makePointListFromArray(array $array): UniquePointList
     {
@@ -34,13 +36,19 @@ class Board
         for ($i = 0; $i < $height; $i++) {
             $row = $array[$i];
 
-            if (!is_array($row)) {
-                throw new Exception('Given array is not valid 2-dimensional.');
+            if (!is_array($row) || empty($row)) {
+                throw new BoardCreationException('Given array is not valid 2-dimensional.');
             }
 
             $width = count($array[$i]);
 
             for ($j = 0; $j < $width; $j++) {
+                $item = $row[$j];
+
+                if (!is_int($item)) {
+                    throw new BoardCreationException('Given array is not valid 2-dimensional.');
+                }
+
                 $pointList->add(new Point(new Position($j, $i), $row[$j]));
             }
         }
@@ -49,7 +57,7 @@ class Board
     }
 
     /**
-     * @throws Exception
+     * @throws PointNotFoundException
      */
     public function getStartPoint(): Point
     {
@@ -57,11 +65,11 @@ class Board
             return $point;
         }
 
-        throw new Exception('Board is empty.');
+        throw new PointNotFoundException('Board is empty.');
     }
 
     /**
-     * @throws Exception
+     * @throws PointNotFoundException
      */
     public function getPointByPosition(Position $position): Point
     {
@@ -71,6 +79,6 @@ class Board
             }
         }
 
-        throw new Exception('Point with given position doesn\'t exist.');
+        throw new PointNotFoundException('Point with given position doesn\'t exist.');
     }
 }

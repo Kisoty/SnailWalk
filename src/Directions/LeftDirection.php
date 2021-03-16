@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Kisoty\Direction;
+namespace Kisoty\Directions;
 
 use Kisoty\Position;
 
-class RightDirection implements DirectionInterface
+class LeftDirection implements DirectionInterface
 {
     public function getNextPosition(Position $position, int $stepSize): Position
     {
-        return new Position($position->getX() + $stepSize, $position->getY());
+        return new Position($position->getX() - $stepSize, $position->getY());
     }
 
     public function turnRight(): DirectionInterface
     {
-        return new BottomDirection();
+        return new TopDirection();
     }
 }

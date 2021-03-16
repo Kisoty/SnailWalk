@@ -2,36 +2,40 @@
 
 declare(strict_types=1);
 
-namespace Kisoty;
+namespace Kisoty\BoardWalkers;
 
-use Exception;
-use Kisoty\Direction\DirectionInterface;
+use Kisoty\Board\Board;
+use Kisoty\Board\PointNotFoundException;
+use Kisoty\Directions\DirectionInterface;
+use Kisoty\Point;
+use Kisoty\Position;
 
-class SnailWalkingObject
+class SnailWalker extends AbstractBoardWalker implements BoardWalkerInterface
 {
-    private Point $point;
     private DirectionInterface $direction;
-    private Board $board;
     private array $path;
-    private int $stuckCounter;
-    private int $stepSize = 1;
+    private int $stuckCounter = 0;
+    private int $stepSize;
 
     /**
-     * @throws Exception
+     * @throws PointNotFoundException
      */
-    public function __construct(Board $board, DirectionInterface $direction)
+    public function __construct(Board $board, DirectionInterface $direction, int $stepSize)
     {
         $this->board = $board;
         $this->direction = $direction;
+        $this->stepSize = $stepSize;
+        $this->path = [];
         $this->moveToPoint($this->board->getStartPoint());
     }
 
     public function walkBoard(): array
     {
-        while ($this->stuckCounter < 2) {
+        while ($this->canContinueWalking()) {
             try {
                 $this->step();
-            } catch (Exception $e) {
+                $this->unstuck();
+            } catch (PointNotFoundException | PointIsNotAllowedException $e) {
                 $this->stuck();
                 $this->turnRight();
             }
@@ -40,8 +44,13 @@ class SnailWalkingObject
         return $this->path;
     }
 
+    private function canContinueWalking(): bool
+    {
+        return $this->stuckCounter < 2;
+    }
+
     /**
-     * @throws Exception
+     * @throws PointNotFoundException|PointIsNotAllowedException
      */
     private function step(): void
     {
@@ -50,12 +59,12 @@ class SnailWalkingObject
         if ($this->canMoveToPoint($nextPoint)) {
             $this->moveToPoint($nextPoint);
         } else {
-            throw new Exception('Can\'t move to this point.');
+            throw new PointIsNotAllowedException('Can\'t move to this point.');
         }
     }
 
     /**
-     * @throws Exception
+     * @throws PointNotFoundException
      */
     private function getNextPoint(): Point
     {
@@ -78,8 +87,6 @@ class SnailWalkingObject
 
     private function moveToPoint(Point $point): void
     {
-        $this->unstuck();
-
         $this->point = $point;
         $point->pass();
 

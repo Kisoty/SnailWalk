@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use Kisoty\Board;
-use Kisoty\Direction\RightDirection;
-use Kisoty\SnailWalkingObject;
+use Kisoty\Board\Board;
+use Kisoty\BoardWalkers\SnailWalker;
+use Kisoty\Directions\RightDirection;
 
 require_once '../vendor/autoload.php';
 
@@ -16,9 +16,9 @@ function snail(array $array): array
 
     try {
         $board = new Board($array);
-        $obj = new SnailWalkingObject($board, new RightDirection());
+        $obj = new SnailWalker($board, new RightDirection(), 1);
     } catch (Exception $e) {
-        //if given array is not 2D just return empty path
+        //if wrong input, just return empty path
         return [];
     }
 

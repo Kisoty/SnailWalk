@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Kisoty\Direction;
+namespace Kisoty\Directions;
 
 use Kisoty\Position;
 
