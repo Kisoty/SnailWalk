@@ -10,7 +10,7 @@ use Kisoty\Directions\DirectionInterface;
 use Kisoty\Point;
 use Kisoty\Position;
 
-class SnailWalker extends AbstractBoardWalker implements BoardWalkerInterface
+class SnailWalker extends AbstractBoardWalker
 {
     private DirectionInterface $direction;
     private array $path;

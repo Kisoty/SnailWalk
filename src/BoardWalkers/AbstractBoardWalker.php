@@ -7,10 +7,10 @@ namespace Kisoty\BoardWalkers;
 use Kisoty\Board\Board;
 use Kisoty\Point;
 
-abstract class AbstractBoardWalker implements BoardWalkerInterface
+abstract class AbstractBoardWalker
 {
     protected Point $point;
     protected Board $board;
 
-    abstract function walkBoard(): array;
+    abstract public function walkBoard(): array;
 }
