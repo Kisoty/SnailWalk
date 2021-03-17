@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Kisoty\Tests;
+namespace Kisoty\Tests\Board;
 
 use Kisoty\Board\Board;
 use Kisoty\Board\BoardCreationException;
