@@ -6,7 +6,7 @@ namespace Kisoty;
 
 use Traversable;
 
-class UniquePointList implements \IteratorAggregate
+final class UniquePointList implements \IteratorAggregate
 {
     /** @var Point[] $points */
     private array $points;
@@ -16,11 +16,13 @@ class UniquePointList implements \IteratorAggregate
         $this->points = [];
     }
 
-    public function add(Point $point): void
+    public function add(Point $point): self
     {
         if (!$this->contains($point)) {
             $this->points[] = $point;
         }
+
+        return $this;
     }
 
     public function contains(Point $point): bool
@@ -28,13 +30,15 @@ class UniquePointList implements \IteratorAggregate
         return in_array($point, $this->points);
     }
 
-    public function remove(Point $point): void
+    public function remove(Point $point): self
     {
         $key = array_search($point, $this->points);
 
         if ($key !== false) {
             unset($this->points[$key]);
         }
+
+        return $this;
     }
 
     public function getIterator(): Traversable
